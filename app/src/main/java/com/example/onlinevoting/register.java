@@ -1,11 +1,14 @@
 package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,25 +16,41 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class register extends AppCompatActivity {
     EditText name,date_of_birth,phone_no,voters_id;
+    TextView textView;
     Button register;
     String date="";
     ArrayAdapter<String> myAdapter;
+    FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +70,7 @@ public class register extends AppCompatActivity {
         phone_no = (EditText) findViewById(R.id.phoneno);
         voters_id = (EditText) findViewById(R.id.votersId);
         register = (Button) findViewById(R.id.reg);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -81,42 +100,59 @@ public class register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseFirestore db=FirebaseFirestore.getInstance();
+                CollectionReference collectionReference=db.collection("users");
+                DocumentReference documentReference=collectionReference.document(phone_no.getText().toString());
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                               Toast.makeText(register.this,"You are already registered. Please login to continue",Toast.LENGTH_LONG).show();
+                                Intent intent=new Intent(getApplicationContext(),login.class);
+                                startActivity(intent);
+                            } else {
+                                if (!validateName() || !validatedob() || !validatphoneno() || !validatvotersid()) {
+                                    return;
+                                }
+                                String name_str = name.getText().toString();
+                                String dob = date_of_birth.getText().toString();
+                                Long phoneno = Long.parseLong(phone_no.getText().toString());
+                                Integer votersId = Integer.parseInt(voters_id.getText().toString());
+                                String gend = gender.getSelectedItem().toString();
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Name", name_str);
+                                user.put("DateOfBirth", dob);
+                                user.put("PhoneNumber", phoneno);
+                                user.put("VotersId", votersId);
+                                user.put("Gender", gend);
+                                db.collection("users").document(String.valueOf(phoneno))
+                                        .set(user)
+                                        .addOnSuccessListener(new OnSuccessListener() {
+                                            @Override
+                                            public void onSuccess(Object o) {
+                                                Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_LONG).show();
+                                            }
 
-                if (!validateName() || !validatedob() || !validatphoneno() || !validatvotersid()) {
-                    return;
-                }
-                String name_str = name.getText().toString();
-                String dob = date_of_birth.getText().toString();
-                Long phoneno = Long.parseLong(phone_no.getText().toString());
-                Integer votersId = Integer.parseInt(voters_id.getText().toString());
-                String gend = gender.getSelectedItem().toString();
-                Map<String, Object> user = new HashMap<>();
-                user.put("Name", name_str);
-                user.put("DateOfBirth", dob);
-                user.put("PhoneNumber", phoneno);
-                user.put("VotersId", votersId);
-                user.put("Gender", gend);
-                db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_LONG).show();
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                Intent intent=new Intent(getApplicationContext(),login.class);
+                                startActivity(intent);
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                Intent intent=new Intent(register.this,login.class);
-                startActivity(intent);
+                        }
+                    }
+                });
 
             }
         });
-
     }
+
     private Boolean validateName () {
         String name_str = name.getText().toString();
         if(name_str.isEmpty()  ){
