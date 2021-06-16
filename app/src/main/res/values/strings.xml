@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">onlineVoting</string>
+    <string name="_91">+91</string>
+    <string name="get_otp">GET OTP</string>
+    <string name="admin_signIn">SIGN IN</string>
+    <string name="didnt_receive_the_otp">Didnt receive the otp</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="verify">Verify</string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

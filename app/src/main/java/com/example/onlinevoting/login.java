@@ -1,131 +1,126 @@
 package com.example.onlinevoting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class login extends AppCompatActivity {
 
-    private Button mSendOTPBtn;
-    private TextView processText;
-    private EditText countryCodeEdit , phoneNumberEdit;
-    private FirebaseAuth auth;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            startActivity(new Intent(this,MainActivity.class));
+            this.finish();
+        }
 
-        mSendOTPBtn = findViewById(R.id.send_codebtn);
-        processText = findViewById(R.id.text_process);
-        countryCodeEdit = findViewById(R.id.input_country_code);
-        phoneNumberEdit = findViewById(R.id.input_phone);
+        final EditText inputMobile = findViewById(R.id.inputMobile);
+        Button buttonGetOTP = findViewById(R.id.buttonGetOTP);
 
-        auth = FirebaseAuth.getInstance();
 
-        mSendOTPBtn.setOnClickListener(new View.OnClickListener() {
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection("users");
+
+
+        buttonGetOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String country_code = countryCodeEdit.getText().toString();
-                String phone = phoneNumberEdit.getText().toString();
-                String phoneNumber = "+" + country_code + "" + phone;
-                if (!country_code.isEmpty() || !phone.isEmpty()){
-                    PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
-                            .setPhoneNumber(phoneNumber)
-                            .setTimeout(60L , TimeUnit.SECONDS)
-                            .setActivity(login.this)
-                            .setCallbacks(mCallBacks)
-                            .build();
-                    PhoneAuthProvider.verifyPhoneNumber(options);
-                }else{
-                    processText.setText("Please Enter Country Code and Phone Number");
-                    processText.setTextColor(Color.RED);
-                    processText.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        mCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                signIn(phoneAuthCredential);
-            }
-
-            @Override
-            public void onVerificationFailed(@NonNull FirebaseException e) {
-                processText.setText(e.getMessage());
-                processText.setTextColor(Color.RED);
-                processText.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                super.onCodeSent(s, forceResendingToken);
-
-                //sometime the code is not detected automatically
-                //so user has to manually enter the code
-                processText.setText("OTP has been Sent");
-                processText.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
+                DocumentReference documentReference = collectionReference.document(inputMobile.getText().toString());
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void run() {
-                        Intent otpIntent = new Intent(login.this , OtpActivity.class);
-                        otpIntent.putExtra("auth" , s);
-                        startActivity(otpIntent);
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (!document.exists()) {
+                                Toast.makeText(login.this, "You need to register first. Please register to continue", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), register.class);
+                                startActivity(intent);
+                            } else {
+                                if (inputMobile.getText().toString().trim().isEmpty()) {
+                                    Toast.makeText(login.this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                progressBar.setVisibility(View.VISIBLE);
+                                buttonGetOTP.setVisibility((View.INVISIBLE));
+
+                                PhoneAuthProvider.verifyPhoneNumber(
+                                        PhoneAuthOptions
+                                                .newBuilder(FirebaseAuth.getInstance())
+                                                .setActivity(login.this)
+                                                .setPhoneNumber("+91" + inputMobile.getText().toString())
+                                                .setTimeout(60L, TimeUnit.SECONDS)
+                                                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                                    @Override
+                                                    public void onVerificationCompleted(@NonNull @NotNull PhoneAuthCredential phoneAuthCredential) {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        buttonGetOTP.setVisibility(View.VISIBLE);
+                                                    }
+
+                                                    @Override
+                                                    public void onVerificationFailed(@NonNull @NotNull FirebaseException e) {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        buttonGetOTP.setVisibility(View.VISIBLE);
+                                                        Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    @Override
+                                                    public void onCodeSent(@NonNull @NotNull String verificationId, @NonNull @NotNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        buttonGetOTP.setVisibility(View.VISIBLE);
+                                                        Intent intent = new Intent(getApplicationContext(), VerifyOTPActivity.class);
+                                                        intent.putExtra("mobile", inputMobile.getText().toString());
+                                                        intent.putExtra("verificationId", verificationId);
+                                                        startActivity(intent);
+                                                    }
+                                                })
+                                                .build());
+                                Intent intent = new Intent(getApplicationContext(), VerifyOTPActivity.class);
+                                intent.putExtra("mobile", inputMobile.getText().toString());
+                                startActivity(intent);
+                            }
+                        }
                     }
-                }, 10000);
-
-            }
-        };
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user !=null){
-            sendToMain();
-        }
-    }
-    private void sendToMain(){
-        Intent mainIntent = new Intent(login.this , MainActivity.class);
-        startActivity(mainIntent);
-        finish();
-    }
-    private void signIn(PhoneAuthCredential credential){
-        auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    sendToMain();
-                }else{
-                    processText.setText(task.getException().getMessage());
-                    processText.setTextColor(Color.RED);
-                    processText.setVisibility(View.VISIBLE);
-                }
+                });
             }
         });
     }
-
 }
