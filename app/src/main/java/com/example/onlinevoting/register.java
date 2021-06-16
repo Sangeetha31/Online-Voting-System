@@ -72,6 +72,8 @@ public class register extends AppCompatActivity {
         register = (Button) findViewById(R.id.reg);
         db = FirebaseFirestore.getInstance();
 
+
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -102,6 +104,9 @@ public class register extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseFirestore db=FirebaseFirestore.getInstance();
                 CollectionReference collectionReference=db.collection("users");
+                if (!validateName() || !validatedob() || !validatphoneno() || !validatvotersid()) {
+                    return;
+                }
                 DocumentReference documentReference=collectionReference.document(phone_no.getText().toString());
                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -178,12 +183,12 @@ public class register extends AppCompatActivity {
 
     }
     private Boolean validatphoneno () {
-        Long phoneno=Long.parseLong(phone_no.getText().toString());
-        if(phoneno.toString().isEmpty()  ){
+        String phone= phone_no.getText().toString();
+        if(phone.isEmpty()){
             phone_no.setError("It cannot be empty");
             return false;
         }
-        else if(phoneno.toString().length()!=10){
+        else if(phone.toString().length()!=10){
             phone_no.setError("It should be 10-digit phone number");
             return false;
         }
@@ -194,8 +199,8 @@ public class register extends AppCompatActivity {
 
     }
     private Boolean validatvotersid () {
-        Integer votersId=Integer.parseInt(voters_id.getText().toString());
-        if(votersId.toString().isEmpty()  ){
+        String votersId=voters_id.getText().toString();
+        if(votersId.isEmpty()  ){
             voters_id.setError("It cannot be empty");
             return false;
         }
