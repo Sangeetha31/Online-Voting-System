@@ -56,6 +56,7 @@ public class register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setTitle("Register");
 
 
         Spinner gender = (Spinner) findViewById(R.id.gender);
