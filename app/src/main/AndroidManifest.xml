@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.onlinevoting">
 
     <application
@@ -9,9 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVoting">
-        <activity android:name=".admin_mainpage"></activity>
+        <activity android:name=".CreatePoll"></activity>
+        <activity android:name=".log_out" />
+        <activity
+            android:name=".edit_Profile"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".about_page"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".admin_mainpage" />
         <activity android:name=".Admin_Login" />
-        <activity android:name=".home" />
+        <activity
+            android:name=".home"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".VerifyOTPActivity"
             android:screenOrientation="portrait"

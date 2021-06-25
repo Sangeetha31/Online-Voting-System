@@ -29,7 +29,8 @@ public class Admin_Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_admin_login);
+        getSupportActionBar().setTitle("Admin Login");
         mAuth = FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
         inputEmail = findViewById(R.id.inputEmail);
@@ -100,7 +101,4 @@ public class Admin_Login extends AppCompatActivity {
         }
 
     }
-
-
-
 }

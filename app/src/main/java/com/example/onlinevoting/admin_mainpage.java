@@ -15,12 +15,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class admin_mainpage extends AppCompatActivity {
 
-    Button logoutbtn;
+    Button logoutbtn, createbtn;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_mainpage);
+        getSupportActionBar().setTitle("Home");
         logoutbtn = findViewById(R.id.logout);
         db= FirebaseFirestore.getInstance();
         logoutbtn.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +30,15 @@ public class admin_mainpage extends AppCompatActivity {
                 db.collection("users").document("admin").update("loggedIn",false);
                 Intent intent = new Intent(getApplicationContext(),Admin_Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        createbtn = findViewById(R.id.createPoll);
+        createbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(admin_mainpage.this, CreatePoll.class);
                 startActivity(intent);
             }
         });
