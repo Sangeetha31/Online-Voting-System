@@ -7,6 +7,11 @@
     <string name="verify">Verify</string>
     <string name="admin_signIn">Sign In</string>
     <string name="back">Back</string>
+    <string name="about">About</string>
+    <string name="online_voting_system">Online Voting System</string>
+    <string name="online_voting_system_is_an_easy_to_use_app_where_the_registered_users_can_vote_through_this_applicaton">Online Voting System is an easy to use app where the registered users can vote through this applicaton</string>
+    <string name="OTP">Here,it will generate the One Time Password for registered mobile numbers. After the voter is validated, he/she can do the voting. It is a speedy and easy idea to do the verification of the voters.</string>
+    <string name="advantage">This application will also reduce voter’s time to stand in a long queue for the vote. It can be used in companies and organizations where they need to decide something which has options</string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>
