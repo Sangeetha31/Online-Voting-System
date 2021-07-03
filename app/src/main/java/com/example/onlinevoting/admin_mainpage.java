@@ -1,6 +1,7 @@
 package com.example.onlinevoting;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class admin_mainpage extends AppCompatActivity {
-    ImageView logout,createPoll;
+    CardView logout,createPoll,edit;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class admin_mainpage extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         logout = findViewById(R.id.logout);
         createPoll=findViewById(R.id.create);
+        edit=findViewById(R.id.edit);
         db= FirebaseFirestore.getInstance();
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +41,14 @@ public class admin_mainpage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(admin_mainpage.this, CreatePoll.class);
+                startActivity(intent);
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(admin_mainpage.this,edit_profile_admin.class);
                 startActivity(intent);
             }
         });
