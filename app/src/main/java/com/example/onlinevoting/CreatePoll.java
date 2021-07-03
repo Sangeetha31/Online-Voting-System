@@ -46,6 +46,7 @@ public class CreatePoll extends AppCompatActivity {
     private ImageView symbolImage;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 22;
+    Boolean imgUpload = false;
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseFirestore db;
@@ -88,17 +89,17 @@ public class CreatePoll extends AppCompatActivity {
     }
 
     private void uploadData(){
-        if (!validateName() || !validatedes()) {
+        if (!validateName() || !validatedes() || !imgUpload) {
+            Toast.makeText(getApplicationContext(),"You have to fill all the fields and upload image.",Toast.LENGTH_LONG).show();
             return;
         }
-        String url = storageReference.child("Candidates/Candidate $count").getDownloadUrl().toString();
+        String url = storageReference.child("Candidates/"+candidateName.getText().toString()).getDownloadUrl().toString();
         CollectionReference collectionReference = db.collection("users/admin/candidate");
-        DocumentReference documentReference = collectionReference.document("Candidate "+count++);
+        DocumentReference documentReference = collectionReference.document(candidateName.getText().toString());
         Map<String, Object> user = new HashMap<>();
         user.put("Name", candidateName.getText().toString());
         user.put("Symbol Url","");
         user.put("Description",description.getText().toString());
-        user.put("ID",count-1);
         documentReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -184,7 +185,7 @@ public class CreatePoll extends AppCompatActivity {
             // Defining the child of storageReference
             StorageReference ref
                     = storageReference
-                    .child("Candidates/" + "Candidate"+ count++);
+                    .child("Candidates/" + candidateName.getText().toString());
 
             // adding listeners on upload
             // or failure of image
@@ -205,6 +206,7 @@ public class CreatePoll extends AppCompatActivity {
                                                     "Image Uploaded!!",
                                                     Toast.LENGTH_SHORT)
                                             .show();
+                                    imgUpload = true;
                                 }
                             })
 
@@ -268,5 +270,6 @@ public class CreatePoll extends AppCompatActivity {
         }
 
     }
+
 
 }
