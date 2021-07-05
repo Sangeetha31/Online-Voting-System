@@ -2,9 +2,12 @@ package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,13 +45,12 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class login extends AppCompatActivity {
-
+  TextView register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setTitle("Login");
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
             startActivity(new Intent(this,MainActivity.class));
             this.finish();
@@ -55,7 +58,15 @@ public class login extends AppCompatActivity {
 
         final EditText inputMobile = findViewById(R.id.inputMobile);
         Button buttonGetOTP = findViewById(R.id.buttonGetOTP);
+        register = findViewById(R.id.onClickRegister);
 
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(login.this,register.class);
+                startActivity(intent);
+            }
+        });
 
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 

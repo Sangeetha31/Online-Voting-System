@@ -2,8 +2,11 @@ package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +39,10 @@ public class edit_profile_admin extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_admin);
+        getSupportActionBar().setTitle("Edit your details");
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
 
         username = findViewById(R.id.inputEmail);
         password = findViewById(R.id.inputPassword);
@@ -85,7 +92,7 @@ public class edit_profile_admin extends AppCompatActivity {
         else if (upassword.length() < 5) {
            password.setError("It should be atleast greater than 5 characters");
         } else if (upassword.equals(new_password_confirm) == false) {
-            Toast.makeText(edit_profile_admin.this, "Please re-enter password correctly", Toast.LENGTH_LONG).show();
+            Toast.makeText(edit_profile_admin.this, "Passwords don't match", Toast.LENGTH_LONG).show();
         } else if (name.equals(email) && upassword.equals(old_password)) {
             Toast.makeText(edit_profile_admin.this, "Nothing to be updated", Toast.LENGTH_LONG).show();
         } else {
