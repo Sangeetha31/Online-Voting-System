@@ -106,6 +106,7 @@ public class CreatePoll extends AppCompatActivity {
         user.put("Name", candidateName.getText().toString());
         user.put("Symbol Url","");
         user.put("Description",description.getText().toString());
+        user.put("Votes","");
         documentReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
