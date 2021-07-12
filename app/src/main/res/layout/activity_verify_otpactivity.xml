@@ -15,12 +15,12 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="80dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/received"/>
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="80dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/recieved"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -157,52 +157,48 @@
                 android:layout_marginLeft="4dp" />
         </LinearLayout>
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="20dp"
-             android:gravity="center"
-             android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/didnt_receive_the_otp"
-                 android:textColor="@color/colorTextSecondary"
-                 android:textSize="14sp"
-                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/didnt_receive_the_otp"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp"
+                />
 
-             <TextView
-                 android:id="@+id/textResend"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="8dp"
-                 android:text="@string/resend_otp"
-                 android:textColor="@color/colorAccent"
-                 android:textSize="15sp"
-                 android:textStyle="bold"
-                 android:layout_marginLeft="8dp" />
-         </LinearLayout>
-          <FrameLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/resend_otp"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="8dp" />
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <Button
                 android:id="@+id/buttontoVerify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:background="@color/black"
-                android:text="@string/verify"
-                android:textColor="@color/colorWhite"
-                android:textSize="10sp"
-                android:textStyle="bold"/>
+                style="@style/loginButton"
+                android:text="Verify"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/loginViewsMargin"/>
 
-              <ProgressBar
-                  android:id="@+id/progressBar"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:layout_gravity="center"
-                  android:visibility="gone" />
-          </FrameLayout>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 </ScrollView>

@@ -1,9 +1,12 @@
 package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,8 +39,9 @@ public class VerifyOTPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otpactivity);
         getSupportActionBar().setTitle("Login");
-
-
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
         TextView textMobile=findViewById(R.id.textMobile);
         textMobile.setText(String.format(
                 "+91-%s",getIntent().getStringExtra("mobile")
@@ -61,11 +65,11 @@ public class VerifyOTPActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(inputCode1.getText().toString().trim().isEmpty()
-                || inputCode2.getText().toString().trim().isEmpty()
-                || inputCode3.getText().toString().trim().isEmpty()
-                || inputCode4.getText().toString().trim().isEmpty()
-                || inputCode5.getText().toString().trim().isEmpty()
-                || inputCode6.getText().toString().trim().isEmpty()){
+                        || inputCode2.getText().toString().trim().isEmpty()
+                        || inputCode3.getText().toString().trim().isEmpty()
+                        || inputCode4.getText().toString().trim().isEmpty()
+                        || inputCode5.getText().toString().trim().isEmpty()
+                        || inputCode6.getText().toString().trim().isEmpty()){
                     Toast.makeText(VerifyOTPActivity.this,"Please enter valid code",Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -91,7 +95,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     buttonVerify.setVisibility(View.VISIBLE);
                                     if(task.isSuccessful()){
-                                        Intent intent=new Intent(getApplicationContext(),home.class);
+                                        Intent intent=new Intent(getApplicationContext(),recaptchaPage.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }else{
@@ -102,7 +106,6 @@ public class VerifyOTPActivity extends AppCompatActivity {
                 }
             }
         });
-
         findViewById(R.id.textResend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,102 +137,102 @@ public class VerifyOTPActivity extends AppCompatActivity {
             }
         });
     }
-        private void setupOTPInputs() {
-            inputCode1.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void setupOTPInputs() {
+        inputCode1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().trim().isEmpty()){
+                    inputCode2.requestFocus();
                 }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().trim().isEmpty()){
-                        inputCode2.requestFocus();
-                    }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        inputCode2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().trim().isEmpty()){
+                    inputCode3.requestFocus();
                 }
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        inputCode3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().trim().isEmpty()){
+                    inputCode4.requestFocus();
                 }
-            });
+            }
 
-            inputCode2.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        inputCode4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().trim().isEmpty()){
+                    inputCode5.requestFocus();
                 }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().trim().isEmpty()){
-                        inputCode3.requestFocus();
-                    }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        inputCode5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().trim().isEmpty()){
+                    inputCode6.requestFocus();
                 }
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                }
-            });
-
-            inputCode3.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().trim().isEmpty()){
-                        inputCode4.requestFocus();
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            inputCode4.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().trim().isEmpty()){
-                        inputCode5.requestFocus();
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            inputCode5.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().trim().isEmpty()){
-                        inputCode5.requestFocus();
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-        }
+            }
+        });
 
     }
+
+}

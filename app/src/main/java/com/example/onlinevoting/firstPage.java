@@ -18,7 +18,7 @@ public class firstPage extends AppCompatActivity  {
         getSupportActionBar().hide();
 
          new android.os.Handler().postDelayed(()->{
-             Intent intent=new Intent(firstPage.this,MainActivity.class);
+             Intent intent=new Intent(firstPage.this,secondPage.class);
              startActivity(intent);
                  },
                  5000);

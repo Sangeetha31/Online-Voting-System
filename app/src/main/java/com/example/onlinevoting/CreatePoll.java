@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,6 +13,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -56,6 +59,9 @@ public class CreatePoll extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
         getSupportActionBar().setTitle("Create Poll");
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
         symbol = findViewById(R.id.symbol);
         submit = findViewById(R.id.candidate_submit);
         symbolImage = findViewById(R.id.imageView);
@@ -100,17 +106,18 @@ public class CreatePoll extends AppCompatActivity {
         user.put("Name", candidateName.getText().toString());
         user.put("Symbol Url","");
         user.put("Description",description.getText().toString());
+        user.put("Votes","");
         documentReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getApplicationContext(), "Successfully added Candidate!", Toast.LENGTH_LONG).show();
-                documentReference.update("Symbol Url",url);
-                Intent intent=new Intent(getApplicationContext(),admin_mainpage.class);
-                startActivity(intent);
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(), "Successfully added Candidate!", Toast.LENGTH_LONG).show();
+                        documentReference.update("Symbol Url",url);
+                        Intent intent=new Intent(getApplicationContext(),admin_mainpage.class);
+                        startActivity(intent);
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
                 Toast.makeText(getApplicationContext(), "Failure!", Toast.LENGTH_LONG).show();

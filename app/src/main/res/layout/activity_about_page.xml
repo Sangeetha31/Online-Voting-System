@@ -17,11 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_marginBottom="672dp"
-            android:background="@color/purple_500"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:background="#185cab"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="-68dp">
 
