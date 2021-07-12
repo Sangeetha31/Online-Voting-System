@@ -6,42 +6,42 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context=".home">
-   <androidx.constraintlayout.widget.ConstraintLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-       <LinearLayout
-           android:id="@+id/layout"
-           android:layout_width="match_parent"
-           android:layout_height="?actionBarSize"
-           android:layout_marginBottom="672dp"
-           android:background="@color/colorPrimary"
-           android:gravity="center_vertical"
-           android:orientation="horizontal"
-           android:paddingStart="15dp"
-           android:paddingEnd="15dp"
-           app:layout_constraintBottom_toBottomOf="parent"
-           tools:layout_editor_absoluteX="-68dp">
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginBottom="672dp"
+            android:background="#185cab"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="-68dp">
 
-           <ImageView
-               android:id="@+id/ClickMenu"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:src="@drawable/ic_menu"
-               />
-           <TextView
-               android:id="@+id/textView"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:textSize="23dp"
-               android:textStyle="bold"
-               android:text="Home"/>
+            <ImageView
+                android:id="@+id/ClickMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Home"
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
-   </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"

@@ -1,11 +1,16 @@
 package com.example.onlinevoting;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -14,17 +19,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class admin_mainpage extends AppCompatActivity {
-
-    Button logoutbtn, createbtn;
+    CardView logout,createPoll,edit;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_mainpage);
         getSupportActionBar().setTitle("Home");
-        logoutbtn = findViewById(R.id.logout);
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
+        logout = findViewById(R.id.logout);
+        createPoll=findViewById(R.id.create);
+        edit=findViewById(R.id.edit);
         db= FirebaseFirestore.getInstance();
-        logoutbtn.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db.collection("users").document("admin").update("loggedIn",false);
@@ -34,13 +43,21 @@ public class admin_mainpage extends AppCompatActivity {
             }
         });
 
-        createbtn = findViewById(R.id.createPoll);
-        createbtn.setOnClickListener(new View.OnClickListener() {
+        createPoll .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(admin_mainpage.this, CreatePoll.class);
                 startActivity(intent);
             }
         });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(admin_mainpage.this,edit_profile_admin.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

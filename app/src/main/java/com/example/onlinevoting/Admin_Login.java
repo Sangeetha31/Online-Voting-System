@@ -1,8 +1,11 @@
 package com.example.onlinevoting;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +34,9 @@ public class Admin_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
         getSupportActionBar().setTitle("Admin Login");
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
         mAuth = FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
         inputEmail = findViewById(R.id.inputEmail);
