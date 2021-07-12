@@ -69,12 +69,13 @@ public class login extends AppCompatActivity {
         });
 
         final ProgressBar progressBar = findViewById(R.id.progressBar);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection("users");
+
 
         buttonGetOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference collectionReference = db.collection("users");
                 DocumentReference documentReference = collectionReference.document(inputMobile.getText().toString());
                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

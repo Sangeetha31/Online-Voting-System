@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 public class home extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView imageView,clickLogo;
-    LinearLayout about,editProfile,logout;
+    LinearLayout about,editProfile,logout,vote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class home extends AppCompatActivity {
         clickLogo = findViewById(R.id.Clicklogo);
         about=findViewById(R.id.about);
         editProfile=findViewById(R.id.editProfile);
+        vote=findViewById(R.id.vote);
         logout=findViewById(R.id.logout);
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,14 @@ public class home extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2=new Intent(home.this,edit_Profile.class);
                 startActivity(intent2);
+            }
+        });
+
+        vote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3=new Intent(home.this,vote_to.class);
+                startActivity(intent3);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
