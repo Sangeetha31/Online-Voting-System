@@ -1,24 +1,17 @@
 package com.example.onlinevoting;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,6 +99,7 @@ public class CreatePoll extends AppCompatActivity {
         user.put("Name", candidateName.getText().toString());
         user.put("Symbol Url","");
         user.put("Description",description.getText().toString());
+        user.put("Votes","");
         documentReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

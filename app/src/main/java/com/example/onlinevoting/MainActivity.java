@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button login,home;
+    Button login,home1;
     TextView register,admin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         register=(TextView) findViewById(R.id.register);
         login=(Button) findViewById(R.id.loginbtn);
         admin=(TextView) findViewById(R.id.admin);
+        home1 =(Button) findViewById(R.id.home1);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,8 +37,15 @@ public class MainActivity extends AppCompatActivity {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this, Admin_Login.class);
-                startActivity(intent1);
+                Intent intent2 = new Intent(MainActivity.this, Admin_Login.class);
+                startActivity(intent2);
+            }
+        });
+        home1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(MainActivity.this,home.class);
+                startActivity(intent3);
             }
         });
     }
