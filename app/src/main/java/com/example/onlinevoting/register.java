@@ -123,6 +123,7 @@ public class register extends AppCompatActivity {
                                 user.put("PhoneNumber", phoneno);
                                 user.put("VotersId", votersId);
                                 user.put("Gender", gend);
+                                user.put("Voted",false);
                                 db.collection("users").document(String.valueOf(phoneno))
                                         .set(user)
                                         .addOnSuccessListener(new OnSuccessListener() {

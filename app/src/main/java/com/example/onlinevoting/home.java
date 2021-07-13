@@ -65,6 +65,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent3=new Intent(home.this,vote_to.class);
+                intent3.putExtra("mobile",getIntent().getStringExtra("mobile"));
                 startActivity(intent3);
             }
         });

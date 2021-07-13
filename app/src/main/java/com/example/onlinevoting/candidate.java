@@ -2,14 +2,19 @@ package com.example.onlinevoting;
 
 public class candidate {
 
-    String Name,Description;
+    String Name,Description,imageUrl;
+    int Votes;
+
 
     public candidate(){}
 
-    public candidate(String name, String description) {
-        this.Name = name;
-        this.Description = description;
+    public candidate(String name, String description, String imageUrl, int votes, boolean voted) {
+        Name = name;
+        Description = description;
+        this.imageUrl = imageUrl;
+        Votes = votes;
     }
+
 
     public String getName() {
         return Name;
@@ -25,5 +30,21 @@ public class candidate {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getVotes() {
+        return Votes;
+    }
+
+    public void setVotes(int votes) {
+        Votes = votes;
     }
 }
