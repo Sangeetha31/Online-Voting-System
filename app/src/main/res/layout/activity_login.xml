@@ -16,118 +16,72 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="20dp"
-        android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/viewParent.headerText.NoMode"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:text="Already\nhave an \nAccount?"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_register_hero"/>
-        </RelativeLayout>
-
-<<<<<<< HEAD
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="80dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/sent"/>
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="OTP verification"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            />
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/viewParent.headerText.NoMode"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Already\nhave an \nAccount?"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_register_hero"/>
+            </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/_91"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent"
+                android:layout_marginTop="@dimen/loginViewsMargin">
 
-        <EditText
-            android:id="@+id/inputMobile"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:hint="Enter 10-digit phone number"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/inputMobile"
+                    style="@style/modifiedEditText"
+                    android:backgroundTint="#EAE1E1"
+                    android:hint="Enter 10-digit phone number"
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-=======
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/parent"
-            android:layout_marginTop="@dimen/loginViewsMargin">
->>>>>>> febd21a31296580cc0ed2cc7df0216fa460049c9
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/inputMobile"
-                style="@style/modifiedEditText"
-                android:backgroundTint="#EAE1E1"
-                android:hint="Enter 10-digit phone number"
-                android:inputType="number"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:id="@+id/buttonGetOTP"
+                    style="@style/modifiedEditText"
+                    android:text="GET OTP"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </FrameLayout>
 
-            <Button
-                android:id="@+id/buttonGetOTP"
-                style="@style/modifiedEditText"
-                android:text="GET OTP"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/onClickRegister"
+                style="@style/parent"
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                android:layout_gravity="end"
+                android:text="New User? Register Now"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
 
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/onClickRegister"
-            style="@style/parent"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            android:layout_gravity="end"
-            android:text="New User? Register Now"
-            android:textAlignment="center"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            tools:ignore="RtlCompat" />
-    </LinearLayout>
-
-<<<<<<< HEAD
-</ScrollView>
-=======
     </ScrollView>
 </RelativeLayout>
->>>>>>> febd21a31296580cc0ed2cc7df0216fa460049c9

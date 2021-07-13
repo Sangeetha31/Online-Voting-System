@@ -7,49 +7,6 @@
     android:background="@drawable/admin_main_page"
     tools:context=".admin_mainpage">
 
-<<<<<<< HEAD
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/createPoll"
-            android:layout_width="138dp"
-            android:layout_height="61dp"
-            android:layout_weight="1"
-            android:text="Create Poll"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="205dp" />
-
-        <Button
-            android:id="@+id/editPoll"
-            android:layout_width="133dp"
-            android:layout_height="57dp"
-            android:layout_weight="1"
-            android:text="Edit Poll"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="318dp" />
-
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="133dp"
-            android:layout_height="57dp"
-            android:text="Logout"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="501dp" />
-
-        <Button
-            android:id="@+id/checkResultBtn"
-            android:layout_width="133dp"
-            android:layout_height="51dp"
-            android:layout_weight="1"
-            android:text="Check Result"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="409dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
-=======
     <GridLayout
         android:layout_width="300dp"
         android:layout_height="350dp"
@@ -197,5 +154,3 @@
     </GridLayout>
 
 </RelativeLayout>
-
->>>>>>> febd21a31296580cc0ed2cc7df0216fa460049c9
