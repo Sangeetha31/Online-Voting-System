@@ -36,10 +36,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Edit Profile"
-                android:textSize="23dp"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,7 @@ import com.google.firebase.database.collection.LLRBNode;
 
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
     CheckBox check_box;
     GoogleApiClient googleApiClient;
@@ -59,7 +60,7 @@ public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.
                                    if((status != null) && status.isSuccess()){
                                        Toast.makeText(getApplicationContext(),"Successfully verified",Toast.LENGTH_SHORT).show();
                                        check_box.setTextColor(Color.GREEN);
-                                       Intent intent = new Intent(getApplicationContext(),home.class);
+                                       Intent intent = new Intent(recaptchaPage.this,home.class);
                                        startActivity(intent);
                                    }
                                }
