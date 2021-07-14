@@ -4,9 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +18,12 @@ public class adapterForcandidate extends RecyclerView.Adapter<adapterForcandidat
 
     Context context;
     ArrayList<candidate> candidateArrayList;
-    private ItemClickListener mItemClickListener;
+    ItemClickListener mItemClickListener;
 
-    public adapterForcandidate(Context context, ArrayList<candidate> candidateArrayList) {
+    public adapterForcandidate(Context context, ArrayList<candidate> candidateArrayList,ItemClickListener itemClickListener) {
         this.context = context;
         this.candidateArrayList = candidateArrayList;
+        this.mItemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -39,25 +39,28 @@ public class adapterForcandidate extends RecyclerView.Adapter<adapterForcandidat
       candidate candidate = candidateArrayList.get(position);
       holder.name.setText(candidate.Name);
       holder.desp.setText(candidate.Description);
-      holder.itemView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-          }
+      holder.itemView.setOnClickListener(view -> {
+          mItemClickListener.onItemClick(candidateArrayList.get(position));
       });
+     // Glide.with(context).load(candidate.Symbol_Url).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
         return candidateArrayList.size();
     }
+
+    public interface ItemClickListener{
+        void onItemClick(candidate candidates);
+    }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name,desp;
-        Button voteBtn;
+        ImageView imageView;
         public MyViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.name);
             desp=itemView.findViewById(R.id.desp);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

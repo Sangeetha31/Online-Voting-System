@@ -97,15 +97,15 @@ public class CreatePoll extends AppCompatActivity {
         DocumentReference documentReference = collectionReference.document(candidateName.getText().toString());
         Map<String, Object> user = new HashMap<>();
         user.put("Name", candidateName.getText().toString());
-        user.put("Symbol Url","");
+        user.put("Symbol_Url","");
         user.put("Description",description.getText().toString());
-        user.put("Votes","");
+        user.put("Votes",0);
         documentReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(), "Successfully added Candidate!", Toast.LENGTH_LONG).show();
-                        documentReference.update("Symbol Url",url);
+                        documentReference.update("Symbol_Url",url);
                         Intent intent=new Intent(getApplicationContext(),admin_mainpage.class);
                         startActivity(intent);
 

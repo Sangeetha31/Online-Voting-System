@@ -60,6 +60,7 @@ public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.
                                        Toast.makeText(getApplicationContext(),"Successfully verified",Toast.LENGTH_SHORT).show();
                                        check_box.setTextColor(Color.GREEN);
                                        Intent intent = new Intent(getApplicationContext(),home.class);
+                                       intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
                                        startActivity(intent);
                                    }
                                }
