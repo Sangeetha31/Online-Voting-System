@@ -57,6 +57,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2=new Intent(home.this,edit_Profile.class);
+                intent2.putExtra("mobile",getIntent().getStringExtra("mobile"));
                 startActivity(intent2);
             }
         });

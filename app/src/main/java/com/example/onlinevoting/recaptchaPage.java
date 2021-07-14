@@ -24,12 +24,12 @@ import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.firebase.database.collection.LLRBNode;
 
 import org.jetbrains.annotations.NotNull;
-
 @SuppressWarnings("deprecation")
 public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
     CheckBox check_box;
     GoogleApiClient googleApiClient;
     String SiteKey="6Lf1lHEbAAAAAPDwCfABpQ7uCnCvzydJqTGNKwln";
+
 
 
     @Override
@@ -41,35 +41,35 @@ public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
         check_box=findViewById(R.id.check_box);
-       googleApiClient = new GoogleApiClient.Builder(this)
-               .addApi(SafetyNet.API)
-               .addConnectionCallbacks(recaptchaPage.this)
-               .build();
-       googleApiClient.connect();
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(SafetyNet.API)
+                .addConnectionCallbacks(recaptchaPage.this)
+                .build();
+        googleApiClient.connect();
 
-       check_box.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if(check_box.isChecked()){
-                   SafetyNet.SafetyNetApi.verifyWithRecaptcha(googleApiClient,SiteKey)
-                           .setResultCallback(new ResultCallback<SafetyNetApi.RecaptchaTokenResult>() {
-                               @Override
-                               public void onResult(@NonNull @NotNull SafetyNetApi.RecaptchaTokenResult recaptchaTokenResult) {
-                                   Status status = recaptchaTokenResult.getStatus();
-                                   if((status != null) && status.isSuccess()){
-                                       Toast.makeText(getApplicationContext(),"Successfully verified",Toast.LENGTH_SHORT).show();
-                                       check_box.setTextColor(Color.GREEN);
-                                       Intent intent = new Intent(getApplicationContext(),home.class);
-                                       intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
-                                       startActivity(intent);
-                                   }
-                               }
-                           });
-               }else{
-                   check_box.setTextColor(Color.BLACK);
-               }
-           }
-       });
+        check_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check_box.isChecked()){
+                    SafetyNet.SafetyNetApi.verifyWithRecaptcha(googleApiClient,SiteKey)
+                            .setResultCallback(new ResultCallback<SafetyNetApi.RecaptchaTokenResult>() {
+                                @Override
+                                public void onResult(@NonNull @NotNull SafetyNetApi.RecaptchaTokenResult recaptchaTokenResult) {
+                                    Status status = recaptchaTokenResult.getStatus();
+                                    if((status != null) && status.isSuccess()){
+                                        Toast.makeText(getApplicationContext(),"Successfully verified",Toast.LENGTH_SHORT).show();
+                                        check_box.setTextColor(Color.GREEN);
+                                        Intent intent = new Intent(getApplicationContext(),home.class);
+                                        intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                }else{
+                    check_box.setTextColor(Color.BLACK);
+                }
+            }
+        });
     }
 
     @Override

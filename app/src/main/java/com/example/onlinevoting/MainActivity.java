@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         home1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this,recaptchaPage.class);
+                Intent intent3 = new Intent(MainActivity.this,home.class);
                 startActivity(intent3);
             }
         });
