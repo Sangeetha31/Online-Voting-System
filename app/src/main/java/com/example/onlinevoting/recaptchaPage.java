@@ -32,7 +32,6 @@ public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.
     String SiteKey="6Lf1lHEbAAAAAPDwCfABpQ7uCnCvzydJqTGNKwln";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +59,8 @@ public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.
                                    if((status != null) && status.isSuccess()){
                                        Toast.makeText(getApplicationContext(),"Successfully verified",Toast.LENGTH_SHORT).show();
                                        check_box.setTextColor(Color.GREEN);
-                                       Intent intent = new Intent(recaptchaPage.this,home.class);
+                                       Intent intent = new Intent(getApplicationContext(),home.class);
+                                       intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
                                        startActivity(intent);
                                    }
                                }

@@ -110,5 +110,9 @@
         android:layout_marginBottom="625dp"
         android:fontFamily="sans-serif-medium"
         android:text="Admin Login"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="138dp"
+        android:layout_marginRight="132dp" />
 </RelativeLayout>

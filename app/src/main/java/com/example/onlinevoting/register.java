@@ -123,6 +123,7 @@ public class register extends AppCompatActivity {
                                 user.put("PhoneNumber", phoneno);
                                 user.put("VotersId", votersId);
                                 user.put("Gender", gend);
+                                user.put("Voted",false);
                                 db.collection("users").document(String.valueOf(phoneno))
                                         .set(user)
                                         .addOnSuccessListener(new OnSuccessListener() {
@@ -138,7 +139,8 @@ public class register extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
                                             }
                                         });
-                                Intent intent=new Intent(getApplicationContext(),login.class);
+                                Intent intent=new Intent(getApplicationContext(),home.class);
+                                intent.putExtra("mobile", phone_no.getText().toString());
                                 startActivity(intent);
                             }
                         }

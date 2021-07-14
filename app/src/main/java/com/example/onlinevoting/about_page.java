@@ -7,9 +7,11 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 public class about_page extends AppCompatActivity {
     ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

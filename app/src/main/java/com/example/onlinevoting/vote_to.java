@@ -1,30 +1,44 @@
 package com.example.onlinevoting;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class vote_to extends AppCompatActivity {
 
+    private static final String TAG = "User Id";
     RecyclerView recyclerView;
     ArrayList<candidate> candidateArrayList;
     adapterForcandidate adapterForcandidate;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +50,42 @@ public class vote_to extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Candidate's list");
         progressDialog.show();
-
-
+        String mobile_number=getIntent().getStringExtra("mobile");
+         Toast.makeText(vote_to.this,mobile_number + "fetched",Toast.LENGTH_LONG).show();
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = FirebaseFirestore.getInstance();
         candidateArrayList = new ArrayList<candidate>();
-        adapterForcandidate = new adapterForcandidate(vote_to.this,candidateArrayList);
+        adapterForcandidate = new adapterForcandidate(vote_to.this, candidateArrayList, new adapterForcandidate.ItemClickListener() {
+            @Override
+            public void onItemClick(candidate candidates) {
+                Vote(candidates.getName(),candidates.getVotes());
+            }
+        });
         recyclerView.setAdapter(adapterForcandidate);
 
         EventChangeListener();
+    }
+
+
+    private void Vote(String Name, int Votes){
+            db.collection("users/admin/candidate").document(Name).update("Votes", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<Void> task) {
+                    String uid = db.collection("users").getId();
+                    db.collection("users/admin/candidate").document(uid).update("Voted",true);
+                    Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+                    Toast.makeText(vote_to.this,"Try again later",Toast.LENGTH_LONG).show();
+                }
+            });
+           // Log.d(TAG,uid);
+
     }
 
     private void EventChangeListener() {
@@ -74,4 +112,5 @@ public class vote_to extends AppCompatActivity {
                     }
                 });
     }
+
 }
