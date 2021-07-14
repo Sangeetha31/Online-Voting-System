@@ -38,12 +38,15 @@ public class vote_to extends AppCompatActivity {
     adapterForcandidate adapterForcandidate;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+    String mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote_to);
         getSupportActionBar().setTitle("Vote");
+
+        mobile = getIntent().getStringExtra("mobile");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -70,19 +73,30 @@ public class vote_to extends AppCompatActivity {
 
 
     private void Vote(String Name, int Votes){
-            db.collection("users/admin/candidate").document(Name).update("Votes", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            db.collection("users").document(mobile).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull @NotNull Task<Void> task) {
-                    String uid = db.collection("users").getId();
-                    db.collection("users/admin/candidate").document(uid).update("Voted",true);
-                    Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(vote_to.this,"Try again later",Toast.LENGTH_LONG).show();
+                public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
+                    if (task.getResult().exists() && !(boolean)task.getResult().get("Voted")){
+                        db.collection("users/admin/candidate").document(Name).update("Votes", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                String uid = db.collection("users").getId();
+                                db.collection("users").document(mobile).update("Voted",true);
+                                Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                Toast.makeText(vote_to.this,"Try again later",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(vote_to.this,"You have already voted!",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
+
            // Log.d(TAG,uid);
 
     }

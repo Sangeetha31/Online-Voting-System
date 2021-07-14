@@ -24,7 +24,7 @@ import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.firebase.database.collection.LLRBNode;
 
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("deprecation")
 public class recaptchaPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
     CheckBox check_box;
     GoogleApiClient googleApiClient;
