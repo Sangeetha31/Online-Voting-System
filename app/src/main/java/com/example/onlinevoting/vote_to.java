@@ -2,15 +2,20 @@ package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,19 +43,25 @@ public class vote_to extends AppCompatActivity {
     adapterForcandidate adapterForcandidate;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+    String mobile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote_to);
-        getSupportActionBar().setTitle("Vote");
+
+        mobile = getIntent().getStringExtra("mobile");
+        getSupportActionBar().setTitle("Edit your details");
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
+        actionBar.setBackgroundDrawable(colorDrawable);
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Candidate's list");
         progressDialog.show();
-
-
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,19 +81,30 @@ public class vote_to extends AppCompatActivity {
 
 
     private void Vote(String Name, int Votes){
-            db.collection("users/admin/candidate").document(Name).update("Votes", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            db.collection("users").document(mobile).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull @NotNull Task<Void> task) {
-                    String uid = db.collection("users").getId();
-                    db.collection("users/admin/candidate").document(uid).update("Voted",true);
-                    Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(vote_to.this,"Try again later",Toast.LENGTH_LONG).show();
+                public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
+                    if (task.getResult().exists() && !(boolean)task.getResult().get("Voted")){
+                        db.collection("users/admin/candidate").document(Name).update("Votes", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                String uid = db.collection("users").getId();
+                                db.collection("users").document(mobile).update("Voted",true);
+                                Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                Toast.makeText(vote_to.this,"Try again later",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(vote_to.this,"You have already voted!",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
+
            // Log.d(TAG,uid);
 
     }

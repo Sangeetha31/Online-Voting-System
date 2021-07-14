@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVoting">
-        <activity android:name=".ViewResult"></activity>
         <activity android:name=".vote_to" />
         <activity
             android:name=".secondPage"
@@ -38,6 +37,7 @@
         <activity
             android:name=".about_page"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity android:name=".admin_mainpage" />
         <activity android:name=".Admin_Login" />
         <activity

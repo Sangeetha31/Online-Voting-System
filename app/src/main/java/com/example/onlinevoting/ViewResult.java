@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -34,11 +35,12 @@ public class ViewResult extends AppCompatActivity {
     String name;
     BarChart barChart;
     BarData barData;
+    ArrayList<BarEntry> barEntries;
     BarDataSet barDataSet;
-    ArrayList barEntries;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference voteReference = db.document("users/admin/candidate");
-    private static final String TAG = "MyActivity";
+    //HorizontalBarChart mChart;
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    DocumentReference voteReference = db.document("users/admin/candidate");
+//    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class ViewResult extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
+//        mChart = findViewById(R.id.HBChart);
+//        SetData(12, 50);
         barChart = findViewById(R.id.BarChart);
         SetData();
 
@@ -60,15 +64,15 @@ public class ViewResult extends AppCompatActivity {
     }
 
     private void SetData(){
-      /*barEntries = new ArrayList<>();
+        barEntries = new ArrayList<>();
         barEntries.add(new BarEntry(2f,5));
         barEntries.add(new BarEntry(4f,1));
         barEntries.add(new BarEntry(5f,2));
         barEntries.add(new BarEntry(6f,3));
         barEntries.add(new BarEntry(7f,4));
         barEntries.add(new BarEntry(8f,5));
-        barEntries.add(new BarEntry(6f,6));*/
-        voteReference.get()
+        barEntries.add(new BarEntry(6f,6));
+        /*voteReference.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(@NonNull @NotNull DocumentSnapshot documentSnapshot) {
@@ -86,6 +90,17 @@ public class ViewResult extends AppCompatActivity {
                     public void onFailure(@NonNull @NotNull Exception e) {
 
                     }
-                });
+                });*/
+        /*barEntries = new ArrayList<>();
+        float barWidth = 9f;
+        float spaceForBar = 10f;
+        for(int i =0; i<count; i++){
+            float val = (float)(Math.random()*range);
+            barEntries.add(new BarEntry(i*spaceForBar, val));
+        }
+        barDataSet= new BarDataSet(barEntries, "Vote Results");
+        barData = new BarData(barDataSet);
+        barData.setBarWidth(barWidth);
+        mChart.setData(barData);*/
     }
 }
