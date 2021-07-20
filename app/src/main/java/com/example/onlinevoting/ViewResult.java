@@ -17,8 +17,10 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,14 +35,17 @@ import static com.github.mikephil.charting.utils.ColorTemplate.*;
 public class ViewResult extends AppCompatActivity {
 
     String name;
+    int vote;
     BarChart barChart;
     BarData barData;
     ArrayList<BarEntry> barEntries;
     BarDataSet barDataSet;
-    //HorizontalBarChart mChart;
-//    FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    DocumentReference voteReference = db.document("users/admin/candidate");
-//    private static final String TAG = "MyActivity";
+    adapterForcandidate adapterForcandidate;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference voteReference = db.document("users/admin/date");
+    private static final String TAG = "Name";
+    private static final String TAG1 = "Votes";
+    static float x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,6 @@ public class ViewResult extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
-//        mChart = findViewById(R.id.HBChart);
-//        SetData(12, 50);
         barChart = findViewById(R.id.BarChart);
         SetData();
 
@@ -72,35 +75,36 @@ public class ViewResult extends AppCompatActivity {
         barEntries.add(new BarEntry(7f,4));
         barEntries.add(new BarEntry(8f,5));
         barEntries.add(new BarEntry(6f,6));
-        /*voteReference.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(@NonNull @NotNull DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            name = (documentSnapshot.getString("NAME"));
-                            Log.e(TAG, name);
-                        }
-                        else{
-                            Toast.makeText(ViewResult.this, "Document does not exist", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-
-                    }
-                });*/
-        /*barEntries = new ArrayList<>();
-        float barWidth = 9f;
-        float spaceForBar = 10f;
-        for(int i =0; i<count; i++){
-            float val = (float)(Math.random()*range);
-            barEntries.add(new BarEntry(i*spaceForBar, val));
-        }
-        barDataSet= new BarDataSet(barEntries, "Vote Results");
-        barData = new BarData(barDataSet);
-        barData.setBarWidth(barWidth);
-        mChart.setData(barData);*/
+//         db.collection("users").document("admin").collection("candidate").document("AAP").get()
+//                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                     @Override
+//                     public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
+//                         if(task.getResult().exists()){
+//                             String name = db.collection("users/admin/candidate").getName();
+//                         }
+//                     }
+//                 });
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(@NonNull @NotNull DocumentSnapshot documentSnapshot) {
+//                        if(documentSnapshot.exists()){
+//                            name = (documentSnapshot.getString("NAME"));
+//                            vote = (int) documentSnapshot.get("VOTES");
+//                            barEntries.add(new BarEntry(x,vote));
+//                            x += 2;
+//                            Log.e(TAG, name);
+//                            Log.d(TAG1, Integer.toString(vote));
+//                        }
+//                        else{
+//                            Toast.makeText(ViewResult.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull @NotNull Exception e) {
+//
+//                    }
+//                });
     }
 }

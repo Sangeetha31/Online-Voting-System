@@ -68,7 +68,7 @@ public class vote_to extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         candidateArrayList = new ArrayList<candidate>();
-        adapterForcandidate = new adapterForcandidate(vote_to.this, candidateArrayList, new adapterForcandidate.ItemClickListener() {
+        adapterForcandidate = new adapterForcandidate(vote_to.this, candidateArrayList,  new adapterForcandidate.ItemClickListener(){
             @Override
             public void onItemClick(candidate candidates) {
                 Vote(candidates.getName(),candidates.getVotes());
