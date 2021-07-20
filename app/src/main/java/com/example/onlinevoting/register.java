@@ -129,7 +129,7 @@ public class register extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener() {
                                             @Override
                                             public void onSuccess(Object o) {
-                                                Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
                                             }
 
                                         })
@@ -181,7 +181,7 @@ public class register extends AppCompatActivity {
             phone_no.setError("It cannot be empty");
             return false;
         }
-        else if(phone.toString().length()!=10){
+        else if(phone.length()!=10){
             phone_no.setError("It should be 10-digit phone number");
             return false;
         }

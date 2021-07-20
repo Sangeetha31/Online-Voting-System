@@ -71,6 +71,8 @@
                             android:id="@+id/inputPhoneNumber"
                             style="@style/modifiedEditText"
                             android:hint="Enter your phone number"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:inputType="text"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>

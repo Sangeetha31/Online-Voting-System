@@ -19,7 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class admin_mainpage extends AppCompatActivity {
-    CardView logout,createPoll,edit;
+    CardView logout,createPoll,edit,results;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class admin_mainpage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         createPoll=findViewById(R.id.create);
         edit=findViewById(R.id.edit);
+        results=findViewById(R.id.results);
         db= FirebaseFirestore.getInstance();
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,14 @@ public class admin_mainpage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(admin_mainpage.this,edit_profile_admin.class);
                 startActivity(intent);
+            }
+        });
+
+        results.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(admin_mainpage.this,ViewResult.class);
+                startActivity((intent));
             }
         });
 
