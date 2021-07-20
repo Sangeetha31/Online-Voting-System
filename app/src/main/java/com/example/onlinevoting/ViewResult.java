@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 
 public class ViewResult extends AppCompatActivity {
 
+    TextView winnerOfElection;
     BarChart barChart;
     ArrayList<BarEntry> barEntryArrayList;
     ArrayList<String> labelNames;
@@ -42,6 +44,7 @@ public class ViewResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_result);
         barChart = findViewById(R.id.BarChart);
+        winnerOfElection = findViewById(R.id.winningCandidate);
         getSupportActionBar().setTitle("Create Poll");
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
@@ -76,13 +79,12 @@ public class ViewResult extends AppCompatActivity {
                             }
                             BarDataSet barDataSet = new BarDataSet(barEntryArrayList,"Voting Results");
                             barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                            Description description = new Description();
-                            description.setText("Results of Voting");
-                            barChart.setDescription(description);
+                            barChart.setDescription(null);
                             BarData barData = new BarData(barDataSet);
                             barChart.setData(barData);
                             XAxis xAxis = barChart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(labelNames));
+                            xAxis.setTextSize(15);
                             xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
                             xAxis.setDrawGridLines(false);
                             xAxis.setDrawAxisLine(false);
@@ -91,6 +93,16 @@ public class ViewResult extends AppCompatActivity {
                             xAxis.setLabelRotationAngle(270);
                             barChart.animateY(2000);
                             barChart.invalidate();
+                            Long max = namesVotes.get(0).votes;
+                            String winner = namesVotes.get(0).name;
+                            for(int i=0;i < namesVotes.size();i++){
+                                if( namesVotes.get(i).votes > max) {
+                                    max = namesVotes.get(i).votes;
+                                    winner = namesVotes.get(i).name;
+                                }
+                            }
+
+                            winnerOfElection.setText(winner + " is leading");
                         } else {
                             Toast.makeText(getApplicationContext(), "Not able to fetch data", Toast.LENGTH_LONG).show();
                         }
