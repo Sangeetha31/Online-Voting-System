@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,7 +96,7 @@ public class vote_to extends AppCompatActivity {
 
 
     private void Vote(String Name, int Votes){
-            db.collection("users").document("9234167893").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            db.collection("users").document(mobile).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
                     if (task.getResult().exists() && !(boolean)task.getResult().get("Voted")){
@@ -103,7 +104,7 @@ public class vote_to extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
                                 String uid = db.collection("users").getId();
-                                db.collection("users").document("9234167893").update("Voted",true);
+                                db.collection("users").document(mobile).update("Voted",true);
                                 Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {

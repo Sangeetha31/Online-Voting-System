@@ -123,13 +123,5 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="8dp" />
 
-    <Button
-        android:id="@+id/home1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="292dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

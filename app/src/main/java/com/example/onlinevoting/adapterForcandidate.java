@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,12 @@ public class adapterForcandidate extends RecyclerView.Adapter<adapterForcandidat
     Context context;
     ArrayList<candidate> candidateArrayList;
     ItemClickListener mItemClickListener;
+
+    public  adapterForcandidate(Context mcontext,ArrayList<candidate> candidates){
+        context= mcontext;
+        candidateArrayList= candidates;
+
+    }
 
     public adapterForcandidate(Context context, ArrayList<candidate> candidateArrayList,ItemClickListener itemClickListener) {
         this.context = context;

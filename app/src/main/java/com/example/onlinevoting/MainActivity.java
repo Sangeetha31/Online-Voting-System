@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         register=(TextView) findViewById(R.id.register);
         login=(Button) findViewById(R.id.loginbtn);
         admin=(TextView) findViewById(R.id.admin);
-        home1 =(Button) findViewById(R.id.home1);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,13 +38,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(MainActivity.this, Admin_Login.class);
                 startActivity(intent2);
-            }
-        });
-        home1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this,home.class);
-                startActivity(intent3);
             }
         });
     }
