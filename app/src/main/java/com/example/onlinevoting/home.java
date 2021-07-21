@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class home extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView imageView,clickLogo;
-    LinearLayout about,editProfile,logout,vote,viewResults;
+    LinearLayout editProfile,logout,vote,viewResults;
     FirebaseFirestore db;
 
     @Override
@@ -99,6 +99,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home.this,view_results_user.class);
+                intent.putExtra("mobile",getIntent().getStringExtra("mobile"));
                 startActivity(intent);
             }
         });

@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVoting">
         <activity android:name=".view_results_user"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 
             ></activity>
         <activity android:name=".ViewResult"
