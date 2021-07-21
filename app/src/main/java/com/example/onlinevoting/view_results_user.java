@@ -3,10 +3,13 @@ package com.example.onlinevoting;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,8 +64,18 @@ public class view_results_user extends AppCompatActivity {
         setContentView(R.layout.activity_view_results_user);
         getSupportActionBar().setTitle("View Results");
         ActionBar actionBar = getSupportActionBar();
+        Toolbar toolbar = findViewById(R.id.app_bar);
+
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view_results_user.this, home.class);
+                startActivity(intent);
+            }
+        });
 
 
         barChart = findViewById(R.id.BarChart);

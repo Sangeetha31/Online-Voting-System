@@ -7,10 +7,26 @@
     android:background="@drawable/results_user"
     tools:context=".view_results_user">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#185cab"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="Vote results"
+            tools:ignore="MissingClass" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/BarChart"
-        android:layout_width="match_parent"
-        android:layout_height="512dp"
+        android:layout_width="401dp"
+        android:layout_height="442dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
