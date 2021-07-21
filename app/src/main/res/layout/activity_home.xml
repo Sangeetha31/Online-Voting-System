@@ -22,12 +22,12 @@
             android:drawable="@drawable/background"
             android:src="@drawable/background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.258"
+            app:layout_constraintHorizontal_bias="0.204"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="66dp" />
+            tools:layout_editor_absoluteY="139dp" />
 
-                <TextView
+        <TextView
                     android:id="@+id/textView4"
                     android:layout_width="235dp"
                     android:layout_height="78dp"
@@ -40,47 +40,44 @@
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteX="26dp" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="329dp"
-                    android:layout_height="74dp"
-                    android:layout_marginTop="44dp"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:padding="10dp"
-                    android:text="@string/online_voting_system_is_an_easy_to_use_app_where_the_registered_users_can_vote_through_this_applicaton"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="8dp" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="329dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:padding="10dp"
+            android:text="@string/online_voting_system_is_an_easy_to_use_app_where_the_registered_users_can_vote_through_this_applicaton"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="385dp"
-                    android:layout_height="99dp"
-                    android:layout_marginTop="28dp"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:padding="10dp"
-                    android:text="@string/OTP"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5"
-                    tools:ignore="MissingConstraints" />
-
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="385dp"
+            android:layout_height="99dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:padding="10dp"
+            android:text="@string/OTP"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:ignore="MissingConstraints" />
 
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_marginBottom="672dp"
             android:background="#185cab"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="-68dp">
+            tools:ignore="MissingConstraints">
 
             <ImageView
                 android:id="@+id/ClickMenu"
@@ -90,7 +87,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Home"
@@ -98,6 +95,7 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
