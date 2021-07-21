@@ -33,7 +33,6 @@ public class home extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         imageView = findViewById(R.id.ClickMenu);
         clickLogo = findViewById(R.id.Clicklogo);
-        about=findViewById(R.id.about);
         editProfile=findViewById(R.id.editProfile);
         vote=findViewById(R.id.vote);
         logout=findViewById(R.id.logout);
@@ -54,13 +53,7 @@ public class home extends AppCompatActivity {
             }
         });
 
-        about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1=new Intent(home.this,about_page.class);
-                startActivity(intent1);
-            }
-        });
+
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

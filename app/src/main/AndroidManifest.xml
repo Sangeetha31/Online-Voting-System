@@ -39,9 +39,6 @@
         <activity
             android:name=".edit_Profile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".about_page"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".admin_mainpage" />
         <activity android:name=".Admin_Login" />
         <activity
