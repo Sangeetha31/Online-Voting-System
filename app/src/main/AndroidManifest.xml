@@ -16,7 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVoting">
-        <activity android:name=".ViewResult"></activity>
+        <activity android:name=".view_results_user"
+
+            ></activity>
+        <activity android:name=".ViewResult"
+            />
         <activity android:name=".vote_to" />
         <activity
             android:name=".secondPage"

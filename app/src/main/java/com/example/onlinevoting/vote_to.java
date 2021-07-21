@@ -16,13 +16,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -39,6 +42,7 @@ public class vote_to extends AppCompatActivity {
 
     private static final String TAG = "User Id";
     RecyclerView recyclerView;
+    TextView message;
     ArrayList<candidate> candidateArrayList;
     adapterForcandidate adapterForcandidate;
     FirebaseFirestore db;
@@ -52,36 +56,46 @@ public class vote_to extends AppCompatActivity {
         setContentView(R.layout.activity_vote_to);
 
         mobile = getIntent().getStringExtra("mobile");
-        getSupportActionBar().setTitle("Edit your details");
+        getSupportActionBar().setTitle("Vote");
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Candidate's list");
-        progressDialog.show();
-        recyclerView = findViewById(R.id.recycleview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        message = findViewById(R.id.message);
         db = FirebaseFirestore.getInstance();
-        candidateArrayList = new ArrayList<candidate>();
-        adapterForcandidate = new adapterForcandidate(vote_to.this, candidateArrayList, new adapterForcandidate.ItemClickListener() {
+
+        CollectionReference collectionReference = db.collection("users");
+        DocumentReference documentReference = collectionReference.document("admin");
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onItemClick(candidate candidates) {
-                Vote(candidates.getName(),candidates.getVotes());
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ((Boolean) documentSnapshot.get("released") == false) {
+                    progressDialog = new ProgressDialog(vote_to.this);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setMessage("Fetching Candidate's list");
+                    progressDialog.show();
+                    recyclerView = findViewById(R.id.recycleview);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(vote_to.this));
+                    candidateArrayList = new ArrayList<candidate>();
+                    adapterForcandidate = new adapterForcandidate(vote_to.this, candidateArrayList, new adapterForcandidate.ItemClickListener() {
+                        @Override
+                        public void onItemClick(candidate candidates) {
+                            Vote(candidates.getName(),candidates.getVotes());
+                        }
+                    });
+                    recyclerView.setAdapter(adapterForcandidate);
+                    EventChangeListener();
+                } else {
+                    message.setText("The voting has been ended");
+                }
             }
         });
-        recyclerView.setAdapter(adapterForcandidate);
-
-        EventChangeListener();
     }
 
 
     private void Vote(String Name, int Votes){
-            db.collection("users").document(mobile).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            db.collection("users").document("9234167893").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
                     if (task.getResult().exists() && !(boolean)task.getResult().get("Voted")){
@@ -89,7 +103,7 @@ public class vote_to extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
                                 String uid = db.collection("users").getId();
-                                db.collection("users").document(mobile).update("Voted",true);
+                                db.collection("users").document("9234167893").update("Voted",true);
                                 Toast.makeText(vote_to.this,"You voted for " + Name,Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {

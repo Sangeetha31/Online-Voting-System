@@ -1,17 +1,12 @@
 package com.example.onlinevoting;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,34 +19,29 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
+public class view_results_user extends AppCompatActivity {
 
-public class ViewResult extends AppCompatActivity {
-
-    TextView winnerOfElection;
-    Button relaseResults;
     BarChart barChart;
+    TextView message;
+    FirebaseFirestore db;
     ArrayList<BarEntry> barEntryArrayList;
     ArrayList<String> labelNames;
     ArrayList<namesVotes> namesVotes = new ArrayList<>();
     private static ArrayList<Long> votes = new ArrayList<>();
     private  static ArrayList<String> names_of_candidate = new ArrayList<>();
-    FirebaseFirestore db;
-
 
     @Override
     public void onBackPressed() {
@@ -64,52 +54,35 @@ public class ViewResult extends AppCompatActivity {
         barChart.invalidate();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        setContentView(R.layout.activity_view_result);
-        barChart = findViewById(R.id.BarChart);
-        relaseResults = findViewById(R.id.release);
-        winnerOfElection = findViewById(R.id.winningCandidate);
-        getSupportActionBar().setTitle("Vote Results");
+        setContentView(R.layout.activity_view_results_user);
+        getSupportActionBar().setTitle("View Results");
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
 
-        getBarChart();
+        barChart = findViewById(R.id.BarChart);
+        message = findViewById(R.id.annoucement);
+        db=FirebaseFirestore.getInstance();
+
         CollectionReference collectionReference = db.collection("users");
         DocumentReference documentReference = collectionReference.document("admin");
-            relaseResults.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    db.runTransaction(new Transaction.Function<Void>() {
-                        @Nullable
-                        @org.jetbrains.annotations.Nullable
-                        @Override
-                        public Void apply(@NonNull @NotNull Transaction transaction) throws FirebaseFirestoreException {
-                            transaction.update(documentReference, "released", true);
-                            return null;
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(ViewResult.this, "Results are released", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull @NotNull Exception e) {
-                            Toast.makeText(ViewResult.this, "Failed", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ((Boolean) documentSnapshot.get("released") == false) {
+                    barChart.setNoDataText("The results have not yet released. Please wait");
+                    barChart.invalidate();
+                } else {
+                    getBarChart();
                 }
-            });
-        }
-
-
+            }
+        });
+}
     private void getBarChart() {
         db= FirebaseFirestore.getInstance();
         db.collection("users/admin/candidate").get()
@@ -159,12 +132,12 @@ public class ViewResult extends AppCompatActivity {
                                 }
                             }
 
-                            winnerOfElection.setText(winner + " is leading");
+                            message.setText(winner + " is winner");
                         } else {
                             Toast.makeText(getApplicationContext(), "Not able to fetch data", Toast.LENGTH_LONG).show();
                         }
                     }
-                    });
+                });
 
     }
 }

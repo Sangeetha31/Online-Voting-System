@@ -19,5 +19,6 @@
     </string-array>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
+    <string name="release_results">Release Results</string>
 
 </resources>

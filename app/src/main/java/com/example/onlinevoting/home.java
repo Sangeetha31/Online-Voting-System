@@ -11,25 +11,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class home extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView imageView,clickLogo;
-    LinearLayout about,editProfile,logout,vote;
+    LinearLayout about,editProfile,logout,vote,viewResults;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         drawerLayout = findViewById(R.id.drawer_layout);
-
         imageView = findViewById(R.id.ClickMenu);
         clickLogo = findViewById(R.id.Clicklogo);
         about=findViewById(R.id.about);
         editProfile=findViewById(R.id.editProfile);
         vote=findViewById(R.id.vote);
         logout=findViewById(R.id.logout);
+        viewResults=findViewById(R.id.results);
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +100,13 @@ public class home extends AppCompatActivity {
                         });
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
+            }
+        });
+        viewResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home.this,view_results_user.class);
+                startActivity(intent);
             }
         });
     }

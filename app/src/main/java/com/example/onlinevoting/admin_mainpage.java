@@ -1,9 +1,11 @@
 package com.example.onlinevoting;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -36,11 +38,27 @@ public class admin_mainpage extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                db.collection("users").document("admin").update("loggedIn",false);
-                Intent intent = new Intent(getApplicationContext(),Admin_Login.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(admin_mainpage.this);
+                builder.setMessage("Are you sure you want to logout?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                db.collection("users").document("admin").update("loggedIn",false);
+                                Intent intent = new Intent(getApplicationContext(),Admin_Login.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
             }
         });
 
