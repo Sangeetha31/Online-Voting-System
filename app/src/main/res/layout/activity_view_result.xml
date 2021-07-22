@@ -8,6 +8,7 @@
     tools:context=".ViewResult"
     android:orientation="horizontal">
 
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/BarChart"
         android:layout_width="match_parent"

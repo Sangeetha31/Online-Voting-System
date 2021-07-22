@@ -57,10 +57,16 @@ public class vote_to extends AppCompatActivity {
         setContentView(R.layout.activity_vote_to);
 
         mobile = getIntent().getStringExtra("mobile");
-        getSupportActionBar().setTitle("Vote");
-        ActionBar actionBar = getSupportActionBar();
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#185cab"));
-        actionBar.setBackgroundDrawable(colorDrawable);
+        Toolbar toolbar = findViewById(R.id.app_bar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(vote_to.this, home.class);
+                intent.putExtra("mobile",mobile);
+                startActivity(intent);
+            }
+        });
 
         message = findViewById(R.id.message);
         db = FirebaseFirestore.getInstance();

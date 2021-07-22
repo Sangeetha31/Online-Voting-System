@@ -26,7 +26,6 @@
         <activity
             android:name=".secondPage"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".feedbackForm" />
         <activity android:name=".recaptchaPage" />
         <activity android:name=".edit_profile_admin" />
         <activity android:name=".firstPage">
