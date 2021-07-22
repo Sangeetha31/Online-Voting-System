@@ -22,7 +22,8 @@
             ></activity>
         <activity android:name=".ViewResult"
             />
-        <activity android:name=".vote_to" />
+        <activity android:name=".vote_to"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".secondPage"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
